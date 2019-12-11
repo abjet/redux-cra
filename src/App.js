@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
-import { simpleAction } from './actions/simpleAction';
+// import { simpleAction } from './actions/simpleAction';
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 1
+    };
+  }
   simpleAction = (event) => {
     this.props.simpleAction();
   }
@@ -19,6 +25,7 @@ class App extends Component {
           {
             JSON.stringify(this.props)
           }
+          {this.props.simpleReducer.count}
         </pre>
         <button onClick={this.simpleAction}>Test redux action</button>
         <p className="App-intro">
@@ -33,6 +40,6 @@ const mapStateToProps = state => ({
   ...state
 });
 const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
+  simpleAction: () => dispatch({type: 'SIMPLE_ACTION'})
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);
